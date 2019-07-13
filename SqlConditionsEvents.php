@@ -54,4 +54,13 @@ final class SqlConditionsEvents
      */
     const POST_DELETE = 'mautic.sqlConditions_post_delete';
 
+    /**
+     * The mautic.sqlConditions.on_campaign_condition_trigger event is dispatched when the campaign sql condition is executed.
+     *
+     * The event listener receives a      * Mautic\CampaignBundle\Event\CampaignExecutionEvent
+     *
+     * @var string
+     */
+    const ON_CAMPAIGN_CONDITION_TRIGGER = 'mautic.sqlConditions.on_campaign_condition_trigger';
+
 }

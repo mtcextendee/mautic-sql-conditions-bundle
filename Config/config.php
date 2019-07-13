@@ -57,7 +57,6 @@ return [
                 'mautic.sqlConditions' => [
                     'route'    => 'mautic_sqlConditions_index',
                     'parent'   => 'mautic.campaign.menu.index',
-                    'iconClass' => 'fa fa-database',
                     'priority' => 70,
                     'checks'   => [
                         'integration' => [
