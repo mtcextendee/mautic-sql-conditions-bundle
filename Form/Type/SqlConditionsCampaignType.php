@@ -13,11 +13,10 @@ namespace MauticPlugin\MauticSqlConditionsBundle\Form\Type;
 
 use MauticPlugin\MauticSqlConditionsBundle\Validator\Constraint\UrlDnsConstraint;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class SqlConditionsType extends AbstractType
+class SqlConditionsCampaignType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -27,10 +26,10 @@ class SqlConditionsType extends AbstractType
     {
 
         $builder->add(
-            'name',
-            'text',
+            'sql',
+            SqlListType::class,
             [
-                'label'       => 'mautic.core.name',
+                'label'       => 'mautic.sqlConditions.sql',
                 'label_attr'  => ['class' => 'control-label'],
                 'attr'        => ['class' => 'form-control'],
                 'constraints' => [
@@ -38,39 +37,5 @@ class SqlConditionsType extends AbstractType
                 ],
             ]
         );
-
-        $builder->add(
-            'sqlQuery',
-            TextareaType::class,
-            [
-                'label'       => 'mautic.sqlConditions.sql',
-                'label_attr'  => ['class' => 'control-label'],
-                'attr'        => [
-                    'class' => 'form-control',
-                    'rows' => 5,
-                ],
-                'required'    => true,
-                'constraints' => [
-                    new NotBlank(),
-                ],
-            ]
-        );
-
-        $builder->add('isPublished', 'yesno_button_group');
-
-        $builder->add(
-            'buttons',
-            'form_buttons'
-        );
-
-    }
-
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'sqlConditions';
     }
 }

@@ -9,7 +9,7 @@
  * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-namespace MauticPlugin\MauticSqlConditionsBundle\SqlExecutioner;
+namespace MauticPlugin\MauticSqlConditionsBundle\Executioner;
 
 use Mautic\CampaignBundle\Event\ConditionEvent;
 use MauticPlugin\MauticSqlConditionsBundle\Model\SqlConditionsModel;
@@ -64,57 +64,13 @@ class SqlConditionDetails
      */
     public function getSqlQuery()
     {
-        $sqlConditionId = $this->getConditionEvent()->getEventConfig()['sql'];
+        $sqlConditionId = $this->getConditionEvent()->getConfig()['sql'];
         $entity =  $this->sqlConditionsModel->getEntity($sqlConditionId);
 
-        if ($entity) {
+        if ($entity && $entity->isPublished()) {
             return $entity->getSqlQuery();
         }
 
-    }
-
-    /**
-     * @return int
-     * @throws \Exception
-     */
-    public function getContactId()
-    {
-        return $this->getConditionEvent()->getLead()->getId();
-    }
-
-    /**
-     * @return int
-     * @throws \Exception
-     */
-    public function getCampaignId()
-    {
-        return $this->getConditionEvent()->getLogEntry()->getCampaign()->getId();
-    }
-
-    /**
-     * @return int
-     * @throws \Exception
-     */
-    public function getEventId()
-    {
-        return $this->getConditionEvent()->getEvent()['id'];
-    }
-
-    /**
-     * @return int
-     * @throws \Exception
-     */
-    public function getRotation()
-    {
-        return $this->getConditionEvent()->getLogEntry()->getRotation();
-    }
-
-    /**
-     * @return string
-     */
-    public function getPrefix()
-    {
-        return MAUTIC_TABLE_PREFIX;
     }
 
 }

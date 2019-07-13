@@ -17,9 +17,7 @@ $view['slots']->start('primaryFormContent');
 $sqlConditions = $entity;
 $types    = ['plugins', 'themes', 'translations', 'assets'];
 ?>
-<style>
-    .btn-apply {display:none }
-</style>
+
 
 <div class="row">
     <div class="col-md-6">

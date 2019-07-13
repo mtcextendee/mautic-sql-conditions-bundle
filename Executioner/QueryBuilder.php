@@ -9,10 +9,11 @@
  * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-namespace MauticPlugin\MauticSqlConditionsBundle\SqlExecutioner;
+namespace MauticPlugin\MauticSqlConditionsBundle\Executioner;
 
 use Doctrine\DBAL\Connections\MasterSlaveConnection;
 use Doctrine\ORM\EntityManager;
+use MauticPlugin\MauticSqlConditionsBundle\Executioner\Params\Params;
 
 class QueryBuilder
 {
@@ -27,13 +28,20 @@ class QueryBuilder
     private $connection;
 
     /**
+     * @var Params
+     */
+    private $params;
+
+    /**
      * SqlExecutioner constructor.
      *
-     * @param SqlConditionDetails $sqlConditionDetails
+     * @param EntityManager $entityManager
+     * @param Params        $params
      */
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManager $entityManager, Params $params)
     {
         $this->entityManager = $entityManager;
+        $this->params = $params;
 
         /** @var Connection $connection */
         $this->connection = $this->entityManager->getConnection();
@@ -42,13 +50,22 @@ class QueryBuilder
         }
     }
 
-    public function getQuery()
+    /**
+     * @param SqlConditionDetails $sqlConditionDetails
+     *
+     * @return \Doctrine\DBAL\Driver\Statement
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    public function runQuery(SqlConditionDetails $sqlConditionDetails)
     {
-        //getdetail
-        // getParams
-        $this->connection->executeQuery($query, $params);
-        $queryBuilder = new QueryBuilder($this->connection);
+        $sqlQuery = $sqlConditionDetails->getSqlQuery();
+        if (!$sqlQuery) {
+            return false;
+        }
+
+        $params = $this->params->parseParamsFromSqlQuery($sqlConditionDetails);
+        return $this->connection->executeQuery($sqlQuery, $params)->fetchAll();
     }
 
 
-}
+};

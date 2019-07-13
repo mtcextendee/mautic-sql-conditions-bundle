@@ -9,7 +9,9 @@
  * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-namespace MauticPlugin\MauticSqlConditionsBundle\SqlExecutioner;
+namespace MauticPlugin\MauticSqlConditionsBundle\Executioner;
+
+use Mautic\CampaignBundle\Event\ConditionEvent;
 
 class SqlExecutioner
 {
@@ -19,17 +21,32 @@ class SqlExecutioner
     private $sqlConditionDetails;
 
     /**
+     * @var QueryBuilder
+     */
+    private $queryBuilder;
+
+    /**
      * SqlExecutioner constructor.
      *
      * @param SqlConditionDetails $sqlConditionDetails
+     * @param QueryBuilder        $queryBuilder
      */
-    public function __construct(SqlConditionDetails $sqlConditionDetails)
+    public function __construct(SqlConditionDetails $sqlConditionDetails, QueryBuilder $queryBuilder)
     {
         $this->sqlConditionDetails = $sqlConditionDetails;
+        $this->queryBuilder = $queryBuilder;
     }
 
-    public function runQuery()
+    /**
+     * @param ConditionEvent $conditionEvent
+     *
+     * @return bool
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    public function execute(ConditionEvent $conditionEvent)
     {
+        $this->sqlConditionDetails->setConditionEvent($conditionEvent);
+        return $this->queryBuilder->runQuery($this->sqlConditionDetails);
 
     }
 

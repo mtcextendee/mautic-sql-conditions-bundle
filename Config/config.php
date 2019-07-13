@@ -16,15 +16,48 @@ return [
     'version'     => '1.0.0',
     'services'    => [
         'events'  => [
-
+            'mautic.sqlConditions.campaign.condition.subscriber' => [
+                'class'     => \MauticPlugin\MauticSqlConditionsBundle\EventListener\CampaignConditionSubscriber::class,
+                'arguments' => [
+                    'mautic.sqlConditions.executioner',
+                ],
+            ],
         ],
         'forms'   => [
+            'mautic.sqlConditions.form.campaign.type' => [
+                'class'     => \MauticPlugin\MauticSqlConditionsBundle\Form\Type\SqlListType::class,
+                'arguments' => [
+                    'mautic.sqlConditions.model.sqlConditions',
+                ],
+            ],
         ],
         'command' => [
 
         ],
         'other'   => [
-
+            'mautic.sqlConditions.executioner' => [
+                'class' => \MauticPlugin\MauticSqlConditionsBundle\Executioner\SqlExecutioner::class,
+                'arguments' => [
+                    'mautic.sqlConditions.executioner.condition.details',
+                    'mautic.sqlConditions.executioner.query.builder',
+                ],
+            ],
+            'mautic.sqlConditions.executioner.condition.details' => [
+                'class' => \MauticPlugin\MauticSqlConditionsBundle\Executioner\SqlConditionDetails::class,
+                'arguments'=>[
+                    'mautic.sqlConditions.model.sqlConditions'
+                ]
+            ],
+            'mautic.sqlConditions.executioner.params' => [
+                'class' => \MauticPlugin\MauticSqlConditionsBundle\Executioner\Params\Params::class,
+            ],
+            'mautic.sqlConditions.executioner.query.builder' => [
+                'class' => \MauticPlugin\MauticSqlConditionsBundle\Executioner\QueryBuilder::class,
+                'arguments'=>[
+                    'doctrine.orm.entity_manager',
+                    'mautic.sqlConditions.executioner.params'
+                ]
+            ],
         ],
 
         'helpers'      => [],
@@ -56,8 +89,8 @@ return [
             'items' => [
                 'mautic.sqlConditions' => [
                     'route'    => 'mautic_sqlConditions_index',
-                    'parent'   => 'mautic.campaign.menu.index',
                     'priority' => 70,
+                    'iconClass' => 'fa fa-database',
                     'checks'   => [
                         'integration' => [
                             'SqlConditions' => [

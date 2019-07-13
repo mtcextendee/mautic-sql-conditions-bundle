@@ -14,6 +14,8 @@ namespace MauticPlugin\MauticSqlConditionsBundle\EventListener;
 use Mautic\CampaignBundle\CampaignEvents;
 use Mautic\CampaignBundle\Event\CampaignBuilderEvent;
 use Mautic\CampaignBundle\Event\ConditionEvent;
+use MauticPlugin\MauticSqlConditionsBundle\Executioner\SqlExecutioner;
+use MauticPlugin\MauticSqlConditionsBundle\Form\Type\SqlConditionsCampaignType;
 use MauticPlugin\MauticSqlConditionsBundle\SqlConditionsEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -22,6 +24,22 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class CampaignConditionSubscriber implements EventSubscriberInterface
 {
+
+    /**
+     * @var SqlExecutioner
+     */
+    private $sqlExecutioner;
+
+    /**
+     * CampaignConditionSubscriber constructor.
+     *
+     * @param SqlExecutioner $sqlExecutioner
+     */
+    public function __construct(SqlExecutioner $sqlExecutioner)
+    {
+        $this->sqlExecutioner = $sqlExecutioner;
+    }
+
     /**
      * @return array
      */
@@ -43,6 +61,8 @@ class CampaignConditionSubscriber implements EventSubscriberInterface
             [
                 'label'       => 'mautic.sqlConditions',
                 'eventName'   => SqlConditionsEvents::ON_CAMPAIGN_CONDITION_TRIGGER,
+                'formType'    => SqlConditionsCampaignType::class,
+
             ]
         );
     }
@@ -52,5 +72,10 @@ class CampaignConditionSubscriber implements EventSubscriberInterface
      */
     public function onCampaignTriggerCondition(ConditionEvent $event)
     {
+        if ($this->sqlExecutioner->execute($event)) {
+            $event->pass();
+        }else{
+            $event->fail();
+        }
     }
 }
