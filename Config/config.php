@@ -93,7 +93,7 @@ return [
             'items' => [
                 'mautic.sqlConditions' => [
                     'route'    => 'mautic_sqlConditions_index',
-                    'priority' => 70,
+                    'priority' => 49,
                     'iconClass' => 'fa fa-database',
                     'checks'   => [
                         'integration' => [
