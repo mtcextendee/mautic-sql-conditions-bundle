@@ -11,7 +11,7 @@ https://mtcextendee.com/plugins
 ### Command line
 - `composer require mtcextendee/mautic-sql-conditions-bundle`
 - `php app/console mautic:plugins:reload`
--  Go to /s/plugins and setup SQL Conditionsł
+-  Go to /s/plugins and setup SQL Conditions
 
 ### Manual 
 - Download last version https://github.com/mtcextendee/mautic-sql-conditions-bundle/releases
