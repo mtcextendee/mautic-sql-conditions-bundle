@@ -27,8 +27,12 @@ return [
             'mautic.sqlConditions.form.campaign.type' => [
                 'class'     => \MauticPlugin\MauticSqlConditionsBundle\Form\Type\SqlListType::class,
                 'arguments' => [
-                    'mautic.sqlConditions.model.sqlConditions',
                 ],
+            ],
+            'mautic.sqlConditions.form.list.type' => [
+                'class'     => \MauticPlugin\MauticSqlConditionsBundle\Form\Type\SqlConditionsCampaignType::class,
+                'arguments' => 'router',
+                'alias'     => 'sqlconditions_list',
             ],
         ],
         'command' => [

@@ -151,17 +151,10 @@ class SqlConditionsModel extends FormModel implements AjaxLookupModelInterface
         $results = [];
         switch ($type) {
             case 'sqlConditions':
-                $entities = $this->getRepository()->getSimpleList(
-                    $filter,
-                    $limit,
-                    $start,
-                    $this->security->isGranted($this->getPermissionBase().':viewother'),
-                    isset($options['top_level']) ? $options['top_level'] : false,
-                    isset($options['ignore_ids']) ? $options['ignore_ids'] : []
-                );
+                $entities = $this->getRepository()->getSimpleList();
 
                 foreach ($entities as $entity) {
-                    $results[$entity['language']][$entity['id']] = $entity['name'];
+                    $results[$entity['value']] = $entity['label'];
                 }
 
                 //sort by language
@@ -172,4 +165,5 @@ class SqlConditionsModel extends FormModel implements AjaxLookupModelInterface
 
         return $results;
     }
+
 }
