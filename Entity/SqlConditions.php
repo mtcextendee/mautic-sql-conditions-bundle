@@ -30,6 +30,12 @@ class SqlConditions extends FormEntity
     protected $id;
 
     /**
+     * @var \Mautic\CategoryBundle\Entity\Category
+     **/
+    private $category;
+
+
+    /**
      * @var \DateTime
      */
     protected $dateAdded;
@@ -60,6 +66,7 @@ class SqlConditions extends FormEntity
             ->setCustomRepositoryClass(SqlConditionsRepository::class);
         $builder->addIdColumns('name', '');
         $builder->addNamedField('sqlQuery', Type::TEXT, 'sql_query');
+        $builder->addCategory();
     }
 
 
@@ -76,6 +83,7 @@ class SqlConditions extends FormEntity
                     'id',
                     'name',
                     'sqlQuery',
+                    'category',
                     'dateAdded',
                 ]
             )
@@ -173,4 +181,24 @@ class SqlConditions extends FormEntity
         return $this->sqlQuery;
     }
 
+
+    /**
+     * @return \Mautic\CategoryBundle\Entity\Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param \Mautic\CategoryBundle\Entity\Category $category
+     *
+     * @return $this
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
 }

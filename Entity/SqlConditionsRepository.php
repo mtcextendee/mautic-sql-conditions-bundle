@@ -29,4 +29,29 @@ class SqlConditionsRepository extends CommonRepository
         return parent::findOneBy(['alias'=>$alias], null);
     }
 
+    /**
+     * Get a list of entities.
+     *
+     * @param array $args
+     *
+     * @return Paginator
+     */
+    public function getEntities(array $args = [])
+    {
+        $alias = $this->getTableAlias();
+
+        $q = $this->_em
+            ->createQueryBuilder()
+            ->select($alias)
+            ->from('MauticSqlConditionsBundle:SqlConditions', $alias, $alias.'.id');
+
+        if (empty($args['iterator_mode'])) {
+            $q->leftJoin($alias.'.category', 'c');
+        }
+
+        $args['qb'] = $q;
+
+        return parent::getEntities($args);
+    }
+
 }

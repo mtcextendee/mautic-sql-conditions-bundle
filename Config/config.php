@@ -106,4 +106,7 @@ return [
             ],
         ],
     ],
+    'categories' => [
+        'plugin:sqlConditions' => 'mautic.sqlConditions',
+    ],
 ];

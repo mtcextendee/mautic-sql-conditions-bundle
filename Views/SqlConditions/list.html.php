@@ -35,7 +35,7 @@ if ($tmpl == 'index') {
                 echo $view->render(
                     'MauticCoreBundle:Helper:tableheader.html.php',
                     [
-                        'sessionVar' => 'badge',
+                        'sessionVar' => 'sqlConditions',
                         'orderBy'    => 'e.name',
                         'text'       => 'mautic.core.name',
                         'class'      => 'col-msg-name',
@@ -46,7 +46,17 @@ if ($tmpl == 'index') {
                 echo $view->render(
                     'MauticCoreBundle:Helper:tableheader.html.php',
                     [
-                        'sessionVar' => 'badge',
+                        'sessionVar' => 'sqlConditions',
+                        'orderBy'    => 'c.title',
+                        'text'       => 'mautic.core.category',
+                        'class'      => 'visible-md visible-lg col-focus-category',
+                    ]
+                );
+
+                echo $view->render(
+                    'MauticCoreBundle:Helper:tableheader.html.php',
+                    [
+                        'sessionVar' => 'sqlConditions',
                         'orderBy'    => 'e.id',
                         'text'       => 'mautic.core.id',
                         'class'      => 'col-msg-id visible-md visible-lg',
@@ -91,6 +101,12 @@ if ($tmpl == 'index') {
                             <?php echo $item->getName(); ?>
 
                         </a>
+                    </td>
+                    <td class="visible-md visible-lg">
+                        <?php $category = $item->getCategory(); ?>
+                        <?php $catName  = ($category) ? $category->getTitle() : $view['translator']->trans('mautic.core.form.uncategorized'); ?>
+                        <?php $color    = ($category) ? '#'.$category->getColor() : 'inherit'; ?>
+                        <span style="white-space: nowrap;"><span class="label label-default pa-4" style="border: 1px solid #d5d5d5; background: <?php echo $color; ?>;"> </span> <span><?php echo $catName; ?></span></span>
                     </td>
                     <td class="visible-md visible-lg"><?php echo $item->getId(); ?></td>
                 </tr>

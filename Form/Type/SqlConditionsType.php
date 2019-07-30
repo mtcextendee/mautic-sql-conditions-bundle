@@ -57,6 +57,14 @@ class SqlConditionsType extends AbstractType
             ]
         );
 
+        $builder->add(
+            'category',
+            'category',
+            [
+                'bundle' => 'plugin:sqlConditions',
+            ]
+        );
+
         $builder->add('isPublished', 'yesno_button_group');
 
 

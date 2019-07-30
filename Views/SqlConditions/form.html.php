@@ -20,10 +20,13 @@ $types    = ['plugins', 'themes', 'translations', 'assets'];
 
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-5">
         <?php echo $view['form']->row($form['name']); ?>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-5">
+        <?php echo $view['form']->row($form['category']); ?>
+    </div>
+    <div class="col-md-2">
         <?php echo $view['form']->row($form['isPublished']); ?>
     </div>
 </div>
