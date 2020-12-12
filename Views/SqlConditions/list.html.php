@@ -94,7 +94,7 @@ if ($tmpl == 'index') {
                         ?>
                     </td>
                     <td>
-                        <a href="<?php echo $view['router']->generate(
+                        <a href="<?php echo $view['router']->url(
                             'mautic_sqlConditions_action',
                             ['objectAction' => 'edit', 'objectId' => $item->getId()]
                         ); ?>" data-toggle="ajax">
@@ -121,7 +121,7 @@ if ($tmpl == 'index') {
                     'page'       => $page,
                     'limit'      => $limit,
                     'menuLinkId' => 'mautic_sqlConditions_event_index',
-                    'baseUrl'    => $view['router']->generate('mautic_sqlConditions_index'),
+                    'baseUrl'    => $view['router']->url('mautic_sqlConditions_index'),
                     'sessionVar' => 'badge',
                 ]
             ); ?>

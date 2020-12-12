@@ -15,6 +15,8 @@ use Mautic\CampaignBundle\CampaignEvents;
 use Mautic\CampaignBundle\Event\CampaignBuilderEvent;
 use Mautic\CampaignBundle\Event\ConditionEvent;
 use MauticPlugin\MauticSqlConditionsBundle\Executioner\SqlExecutioner;
+use MauticPlugin\MauticSqlConditionsBundle\Form\Type\SqlConditionsCampaignType;
+use MauticPlugin\MauticSqlConditionsBundle\Form\Type\SqlListType;
 use MauticPlugin\MauticSqlConditionsBundle\SqlConditionsEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -60,7 +62,7 @@ class CampaignConditionSubscriber implements EventSubscriberInterface
             [
                 'label'           => 'mautic.sqlConditions',
                 'eventName'       => SqlConditionsEvents::ON_CAMPAIGN_CONDITION_TRIGGER,
-                'formType'        => 'sqlconditions_list',
+                'formType'        => SqlConditionsCampaignType::class,
                 'formTheme'       => 'MauticSqlConditionsBundle:FormTheme\SqlConditionsList',
                 'formTypeOptions' => ['update_select' => 'campaignevent_properties_sql'],
 

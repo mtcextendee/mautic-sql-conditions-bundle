@@ -13,6 +13,7 @@ namespace MauticPlugin\MauticSqlConditionsBundle\Form\Type;
 
 use MauticPlugin\MauticSqlConditionsBundle\Validator\Constraint\UrlDnsConstraint;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\RouterInterface;
@@ -73,7 +74,7 @@ class SqlConditionsCampaignType extends AbstractType
 
             $builder->add(
                 'newButton',
-                'button',
+                ButtonType::class,
                 [
                     'attr' => [
                         'class'   => 'btn btn-primary btn-nospin',
@@ -99,7 +100,7 @@ class SqlConditionsCampaignType extends AbstractType
 
             $builder->add(
                 'editButton',
-                'button',
+                ButtonType::class,
                 [
                     'attr' => [
                         'class'    => 'btn btn-primary btn-nospin',
@@ -126,7 +127,7 @@ class SqlConditionsCampaignType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'sqlconditions_list';
     }
