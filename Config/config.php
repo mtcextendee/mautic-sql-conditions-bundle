@@ -71,7 +71,7 @@ return [
             ],
         ],
         'integrations' => [
-            'mautic.integration.sqlConditions' => [
+            'mautic.integration.sqlconditions' => [
                 'class' => \MauticPlugin\MauticSqlConditionsBundle\Integration\SqlConditionsIntegration::class,
                 'arguments' => [
                     'event_dispatcher',
